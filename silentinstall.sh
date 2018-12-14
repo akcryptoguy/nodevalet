@@ -131,8 +131,19 @@ function add_cron() {
 	chmod 0700 /root/code-red/autoupdate/autoupdate.sh
 	chmod 0700 /root/code-red/autoupdate/updatebinaries.sh
 	chmod 0700 /root/code-red/autoupdate/updatefromsource.sh
+	chmod 0700 /root/code-red/maintenance/checkdaemon.sh
+	chmod 0700 /root/code-red/maintenance/cleardebuglog.sh
+	chmod 0700 /root/code-red/maintenance/makerun.sh
 	# automatically check for wallet updates every 1 day
 	(crontab -l ; echo "* * 1 * * /root/code-red/autoupdate/autoupdate.sh") | crontab -   | tee -a "$LOGFILE"
+	# make sure no daemon is stuck
+	(crontab -l ; echo "*/30 * * * * /root/code-red/maintenance/checkdaemon.sh") | crontab -   | tee -a "$LOGFILE"
+	# make sure all daemon are running
+	(crontab -l ; echo "*/5 * * * * /root/code-red/maintenance/makerun.sh") | crontab -   | tee -a "$LOGFILE"
+	# clear coin's debug.log every two days
+	(crontab -l ; echo "* * */2 * * /root/code-red/maintenance/cleardebuglog.sh") | crontab -   | tee -a "$LOGFILE"
+	
+	
 	
 }
 
