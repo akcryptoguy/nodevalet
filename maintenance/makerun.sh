@@ -4,7 +4,13 @@
 
 LOGFILE='/var/tmp/nodevalet/logs/makerun.log'
 INSTALLDIR='/var/tmp/nodevalet'
-PROJECT=`cat $INSTALLDIR/info/vpscoin.info`
+INFODIR='/var/tmp/nvtemp'
+PROJECT=`cat $INFODIR/vpscoin.info`
+MNS=`cat $INFODIR/vpsnumber.info`
+
+# add logging to check if cron is working as planned
+# echo -e "`date +%m.%d.%Y_%H:%M:%S` : Executing makerun.sh (every 5 minutes, cron) \n"  | tee -a "$LOGFILE"
+
 TOTAL=`ps aux | grep -i "$PROJECT"d | wc -l`
 CUR_DAEMON=`expr $TOTAL - 1`
 EXP_DAEMON=`cat /var/temp/nodevalet/info/vpsnumber.info`
