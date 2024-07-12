@@ -701,8 +701,12 @@ function prepare_mn_interfaces() {
         if [ -f /sys/class/net/eth0/operstate ]; then export ETH_INTERFACE="eth0" ; echo -e "Found a match; we are going to use eth0 instead" | tee -a "$LOGFILE" ; fi
         if [ -f /sys/class/net/ens4/operstate ]; then export ETH_INTERFACE="ens4" ; echo -e "Found a match; we are going to use ens4 instead" | tee -a "$LOGFILE" ; fi
         if [ -f /sys/class/net/net0/operstate ]; then export ETH_INTERFACE="net0" ; echo -e "Found a match; we are going to use net0 instead" | tee -a "$LOGFILE" ; fi
+        if [ -f /sys/class/net/net0/operstate ]; then export ETH_INTERFACE="enp1s0" ; echo -e "Found a match; we are going to use net0 instead" | tee -a "$LOGFILE" ; fi
         if [ -f /sys/class/net/ens160/operstate ]; then export ETH_INTERFACE="ens160" ; echo -e "Found a match; we are going to use ens160 instead" ; fi
     fi
+    
+    # find out what the interface is and use that (newer method)
+    export ETH_INTERFACE=$(ls /sys/class/net | grep -v '^lo$' | head -n 1)
 
     # check for the nuse case <3
     if [ -f /sys/class/net/ens160/operstate ]; then

@@ -5,7 +5,7 @@ This is the repository for the https://www.nodevalet.io masternode installation 
 To get started, visit us on the web https://www.nodevalet.io and click the "Get Started" link, or if you already have your own ipv6-enabled VPS started and running Ubuntu 16, 18, or 20, go ahead and launch a our "headless" installation script from terminal:
 
 ```bash
-cd /var/tmp && sudo git clone https://github.com/nodevalet/nodevalet && cd nodevalet && sudo bash silentinstall.sh
+cd /var/tmp && sudo git clone https://github.com/akcryptoguy/nodevalet && cd nodevalet && sudo bash silentinstall.sh
 ```
 
 NodeValet helps you securely deploy multiple masternodes on a VPS of your choosing in a matter of minutes. We combine fully-automated deployments with the convenience of a hosted solution. NodeValet masternodes come pre-installed with a variety of maintenance scripts that ensure your masternodes are always online, always secure, and they even install most wallet updates without user intervention. **A true set-and-forget solution**.

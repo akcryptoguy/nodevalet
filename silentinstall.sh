@@ -125,7 +125,7 @@ function gather_info() {
         [ -f /proc/net/if_inet6 ] && echo -e "${lightgreen} It looks like your system supports IPv6. This is good!\n" || echo -e "${lightred} IPv6 support was not found! Look into this if the script fails.${nocolor}\n"
 
         echo -e "${white} Please choose from one of the following supported coins to install:\n${nocolor}"
-        echo -e "${lightpurple}    audax | phore | pivx | squorum | mue${nocolor}\n"
+        echo -e "${lightpurple}    hemis | audax | phore | pivx | squorum | mue${nocolor}\n"
         echo -e "${lightpurple}    sierra | stakecube | wagerr | smart    ${nocolor}\n"
         echo -e "${cyan} In one word, which coin are installing today? ${nocolor}"
         while :; do
@@ -802,6 +802,13 @@ EOT
                 cat $INSTALLDIR/temp/blsgenkeys | jq '.["secret"]' | tr -d '["]' >> $INFODIR/vps.blssecret.info
                 cat $INSTALLDIR/temp/blsgenkeys | jq '.["public"]' | tr -d '["]' >> $INFODIR/vps.blspublic.info
 
+                # add something for Hemis here
+                elif [ "${PROJECT,,}" = "hemis" ]
+                then /usr/local/bin/"${MNODE_DAEMON::-1}"-cli -conf=/etc/masternodes/"${PROJECT}"_n1.conf generateblskeypair >> $INSTALLDIR/temp/blsgenkeys
+                cat $INSTALLDIR/temp/blsgenkeys | jq '.["secret"]' | tr -d '["]' >> $INSTALLDIR/temp/genkeys
+                cat $INSTALLDIR/temp/blsgenkeys | jq '.["secret"]' | tr -d '["]' >> $INFODIR/vps.blssecret.info
+                cat $INSTALLDIR/temp/blsgenkeys | jq '.["public"]' | tr -d '["]' >> $INFODIR/vps.blspublic.info
+
                 elif [ "${PROJECT,,}" = "smart" ]
                 then /usr/local/bin/"${MNODE_DAEMON::-1}"-cli -conf=/etc/masternodes/"${PROJECT}"_n1.conf smartnode genkey >> $INSTALLDIR/temp/genkeys
                 
@@ -815,6 +822,7 @@ EOT
                 # craft line to be injected into wallet.conf
                 if [ "${PROJECT,,}" = "smart" ] ; then echo "smartnodeprivkey=" > $INSTALLDIR/temp/MNPRIV1
                 elif [ "${PROJECT,,}" = "zcoin" ] ; then echo "znodeprivkey=" > $INSTALLDIR/temp/MNPRIV1
+                elif [ "${PROJECT,,}" = "hemis" ] ; then echo "gamemasterprivkey=" > $INSTALLDIR/temp/MNPRIV1
                 elif [ "${PROJECT,,}" = "sierra" ] ; then echo "masternodeblsprivkey=" > $INSTALLDIR/temp/MNPRIV1
                 else echo "masternodeprivkey=" > $INSTALLDIR/temp/MNPRIV1
                 fi
@@ -882,6 +890,12 @@ EOT
             then
                 sed -i "s/^masternodeblsprivkey=.*/$GENKEYVAR/" /etc/masternodes/"${PROJECT}"_n$i.conf
                 masternodeprivkeyafter=$(grep ^masternodeblsprivkey /etc/masternodes/"${PROJECT}"_n$i.conf)
+                echo -e " Privkey in /etc/masternodes/${PROJECT}_n$i.conf after sub is : " >> $LOGFILE
+                echo -e " $masternodeprivkeyafter" >> $LOGFILE
+            elif [ "${PROJECT,,}" = "hemis" ]
+            then
+                sed -i "s/^masternodeprivkey=.*/$GENKEYVAR/" /etc/masternodes/"${PROJECT}"_n$i.conf
+                masternodeprivkeyafter=$(grep ^gamemasterprivkey /etc/masternodes/"${PROJECT}"_n$i.conf)
                 echo -e " Privkey in /etc/masternodes/${PROJECT}_n$i.conf after sub is : " >> $LOGFILE
                 echo -e " $masternodeprivkeyafter" >> $LOGFILE
             else
