@@ -585,6 +585,23 @@ function install_binaries() {
         # do not try to unpack and install if tarball does not exist
         if [ -z "$TARBALL" ]
         then echo -e "${lightred}Binaries for ${PROJECTt} matching ${yellow}$GITSTRING${lightred} could not be located.${nocolor}"
+        
+        elif [ "${PROJECT,,}" = "hemis" ]
+        then echo "Installing unzip"
+        sudo apt install unzip -y
+        echo "unzip installed"
+
+        echo "Fetching latest Hemis version"
+        wget --quiet https://github.com/Hemis-Blockchain/Hemis/releases/latest/download/Hemis-Linux.zip && sudo unzip Hemis-Linux.zip -d /usr/local/bin
+        wget --quiet https://github.com/Hemis-Blockchain/Hemis/releases/latest/download/Hemis-params.zip && unzip Hemis-params.zip -d ~/.Hemis-params
+        echo "Hemis succesfully installed and added daemon=1 to config"
+        mkdir -p ~/.Hemis
+        echo "daemon=1" > ~/.Hemis/Hemis.conf 
+        echo "Cleanup excess files"
+        rm Hemis-Linux.zip && rm Hemis-params.zip
+        echo "Running Hemisd"
+        Hemisd
+       
         else echo -e "${lightcyan}Unpacking and installing binaries.${nocolor}"
             if [[ $TARBALL == *.gz ]]
             then tar -xzf "$TARBALL"
@@ -607,7 +624,7 @@ function install_binaries() {
         echo -e "Cannot download binaries; no GITAPI_URL was detected \n" | tee -a "$LOGFILE"
     fi
 
-    # check if binaries already exist, skip installing crypto packages if they aren't needed
+        # check if binaries already exist, skip installing crypto packages if they aren't needed
     dEXIST=$(ls /usr/local/bin | grep "${MNODE_BINARIES}")
 
     if [[ "${dEXIST}" ]]
