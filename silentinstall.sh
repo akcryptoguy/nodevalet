@@ -94,9 +94,9 @@ function gather_info() {
     then PROJECT=$(cat $INFODIR/vps.coin.info)
         PROJECTl=${PROJECT,,}
         PROJECTt=${PROJECTl~}
-        touch $INFODIR/fullauto.info
+        # touch $INFODIR/fullauto.info
         echo -e "${nocolor} Script was invoked by NodeValet and is on full-auto\n" | tee -a "$LOGFILE"
-        echo -e " Script was invoked by NodeValet and is on full-auto\n" >> $INFODIR/fullauto.info
+        # echo -e " Script was invoked by NodeValet and is on full-auto\n" >> $INFODIR/fullauto.info
         echo -e " Setting Project Name to $PROJECTt : vps.coin.info found" >> $LOGFILE
     else echo -e " ${lightcyan}We are pleased that you have chosen to let NodeValet configure your VPS."
         echo -e " This interactive script will first prompt you for information about your"
@@ -257,7 +257,7 @@ function gather_info() {
     else
         # Gather MN addresses
         # Check if blockchain is fully-supported
-        BLOCKEX=$(grep ^BLOCKEXP=unsupported $INSTALLDIR/nodemaster/config/"$PROJECT"/"$PROJECT".env)
+        # BLOCKEX=$(grep ^BLOCKEXP=unsupported $INSTALLDIR/nodemaster/config/"$PROJECT"/"$PROJECT".env)
         if [ -n "$BLOCKEX" ]
         then echo -e "\n\n ${lightcyan}NodeValet found no fully-supported block explorer.${nocolor}" | tee -a "$LOGFILE"
             echo -e " ${lightred}You must manually enter your transaction IDs for your masternodes to work.\n${nocolor}" | tee -a "$LOGFILE"
