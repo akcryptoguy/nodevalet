@@ -156,6 +156,9 @@ function gather_info() {
     sleep 4
 
     # read API key if it exists, if not prompt for it
+    
+    touch $INFODIR/vps.api.info 
+    echo "FAKE-KEY" > $INFODIR/vps.api.info 
     if [ -e $INFODIR/vps.api.info ]
     then VPSAPI=$(<$INFODIR/vps.api.info)
         echo -e " Setting NodeValet API key to provided value : vps.api.info found" >> $LOGFILE
