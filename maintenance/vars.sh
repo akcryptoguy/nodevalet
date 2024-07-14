@@ -20,7 +20,13 @@ MNODE_BINARIES=$(<$INFODIR/vps.binaries.info)
 HNAME=$(<$INFODIR/vps.hostname.info)
 VPSAPI=$(<$INFODIR/vps.api.info)
 ONLYNET=$(<$INFODIR/vps.onlynet.info)
-BLOCKEXP=$(<$INFODIR/vps.BLOCKEXP.info)
+# BLOCKEXP=$(<$INFODIR/vps.BLOCKEXP.info)
+if [ -f "$INFODIR/vps.BLOCKEXP.info" ]; then
+    BLOCKEXP=$(<"$INFODIR/vps.BLOCKEXP.info")
+else
+    BLOCKEXP=""  # or use any default value you prefer
+fi
+
 
 ### define colors ###
 lightred=$'\033[1;31m'  # light red
