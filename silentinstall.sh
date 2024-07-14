@@ -589,21 +589,21 @@ function install_binaries() {
         if [ -z "$TARBALL" ]
         then echo -e "${lightred}Binaries for ${PROJECTt} matching ${yellow}$GITSTRING${lightred} could not be located.${nocolor}"
         
-        elif [ "${PROJECT,,}" = "hemis" ]
-        then echo "Installing unzip"
-        sudo apt install unzip -y
-        echo "unzip installed"
+#        elif [ "${PROJECT,,}" = "hemis" ]
+#        then echo "Installing unzip"
+#        sudo apt install unzip -y
+#        echo "unzip installed"
 
-        echo "Fetching latest Hemis version"
-        wget --quiet https://github.com/Hemis-Blockchain/Hemis/releases/latest/download/Hemis-Linux.zip && sudo unzip Hemis-Linux.zip -d /usr/local/bin
-        wget --quiet https://github.com/Hemis-Blockchain/Hemis/releases/latest/download/Hemis-params.zip && unzip Hemis-params.zip -d /home/masternode/.Hemis-params
-        echo "Hemis succesfully installed and added daemon=1 to config"
-        mkdir -p ~/.Hemis
-        echo "daemon=1" > ~/.Hemis/Hemis.conf 
-        echo "Cleanup excess files"
-        rm Hemis-Linux.zip && rm Hemis-params.zip
-        echo "Running Hemisd"
-        Hemisd
+#        echo "Fetching latest Hemis version"
+#        wget --quiet https://github.com/Hemis-Blockchain/Hemis/releases/latest/download/Hemis-Linux.zip && sudo unzip Hemis-Linux.zip -d /usr/local/bin
+#        wget --quiet https://github.com/Hemis-Blockchain/Hemis/releases/latest/download/Hemis-params.zip && unzip Hemis-params.zip -d /home/masternode/.Hemis-params
+#        echo "Hemis succesfully installed and added daemon=1 to config"
+#        mkdir -p ~/.Hemis
+#        echo "daemon=1" > ~/.Hemis/Hemis.conf 
+#        echo "Cleanup excess files"
+#        rm Hemis-Linux.zip && rm Hemis-params.zip
+#        echo "Running Hemisd"
+#        Hemisd
        
         else echo -e "${lightcyan}Unpacking and installing binaries.${nocolor}"
             if [[ $TARBALL == *.gz ]]
