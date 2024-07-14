@@ -261,7 +261,7 @@ function gather_info() {
         # Gather MN addresses
         # Check if blockchain is fully-supported
         # BLOCKEX=$(grep ^BLOCKEXP=unsupported $INSTALLDIR/nodemaster/config/"$PROJECT"/"$PROJECT".env)
-        if [ -n "$BLOCKEX" ]
+        if [ -z "$BLOCKEX" ]
         then echo -e "\n\n ${lightcyan}NodeValet found no fully-supported block explorer.${nocolor}" | tee -a "$LOGFILE"
             echo -e " ${lightred}You must manually enter your transaction IDs for your masternodes to work.\n${nocolor}" | tee -a "$LOGFILE"
             echo -e "\n${white} In order to retrieve your transaction IDs, you should first send the required "
