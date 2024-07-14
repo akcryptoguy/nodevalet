@@ -914,7 +914,7 @@ EOT
                 echo -e " $masternodeprivkeyafter" >> $LOGFILE
             elif [ "${PROJECT,,}" = "hemis" ]
             then
-                sed -i "s/^masternodeprivkey=.*/$GENKEYVAR/" /etc/masternodes/"${PROJECT}"_n$i.conf
+                sed -i "s/^gamemasterprivkey=.*/$GENKEYVAR/" /etc/masternodes/"${PROJECT}"_n$i.conf
                 masternodeprivkeyafter=$(grep ^gamemasterprivkey /etc/masternodes/"${PROJECT}"_n$i.conf)
                 echo -e " Privkey in /etc/masternodes/${PROJECT}_n$i.conf after sub is : " >> $LOGFILE
                 echo -e " $masternodeprivkeyafter" >> $LOGFILE
