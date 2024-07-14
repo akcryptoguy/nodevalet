@@ -450,7 +450,7 @@ function gather_info() {
                         read -n 1 -s -r -p "  --> Is this correct? y/n  " VERIFY
                         if [[ $VERIFY == "y" || $VERIFY == "Y" ]]
                         then echo -e -n "${nocolor}"
-                            echo -e "$UGENKEY" >> $INSTALLDIR/temp/genkeys
+                            echo -e "${UGENKEY}" >> $INSTALLDIR/temp/genkeys
                             echo -e " -> Masternode $i genkey is: $UGENKEY" >> $LOGFILE
                             echo -e "$(sed -n ${i}p $INSTALLDIR/temp/genkeys)" > $INSTALLDIR/temp/GENKEY$i
                             break
